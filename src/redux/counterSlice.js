@@ -1,6 +1,6 @@
 
 import { createSlice } from "@reduxjs/toolkit";
-console.log(createSlice);
+
 
 const initialState = {
   count: 0,
