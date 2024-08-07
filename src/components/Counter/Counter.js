@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { increment, decrement, setStep } from '../redux/counterSlice';
+import { increment, decrement, setStep } from '../../store/slices/counterSlice';
 
 const Counter = (props) => {
   const { count, step, increment, decrement, setStep } = props;
@@ -28,10 +28,9 @@ const Counter = (props) => {
 // }
 
 function mapStateToProps(state) {
-  return {
-    count: state.count,
-    step: state.step
-  }
+  return state.counter;
+    //{ count: state.counter.count,
+    // step: state.counter.step}
 }
 
 // Функціональний варіант
