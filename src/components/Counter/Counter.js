@@ -4,7 +4,7 @@ import { increment, decrement, setStep } from '../../store/slices/counterSlice';
 import { setLang } from '../../store/slices/langSlice';
 import CONSTANTS from '../../constants';
 import styles from './Counter.module.scss';
-import classNames from 'classnames';
+import classNames from 'classnames'; // cx
 
 const { LANGUAGE: { EN_US, UA_UA, PL_PL, DE_DE }, THEMES } = CONSTANTS
 
