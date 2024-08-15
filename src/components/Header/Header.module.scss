@@ -1,3 +1,4 @@
+@use '../../common/styles/template';
 
 .header {
     display: flex;
@@ -18,11 +19,9 @@
 }
 
 .darkTheme {
-    background-color: black;
-    color: yellow;
+    @extend %darkTheme
 }
 
 .lightTheme {
-    background-color: white;
-    color: black;
+    @extend %lightTheme
 }
