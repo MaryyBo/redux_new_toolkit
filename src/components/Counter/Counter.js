@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { increment, decrement, setStep } from '../../store/slices/counterSlice';
 import { setLang } from '../../store/slices/langSlice';
 import CONSTANTS from '../../constants';
@@ -44,7 +44,11 @@ const translations = new Map([
 
 const Counter = (props) => {
 
-  const { counter: { count, step }, language, theme, increment, decrement, setStep, setLang } = props;
+  const theme = useSelector((state) => state.theme);
+  const language = useSelector((state) => state.lang);
+  const { count, step } = useSelector((state) => state.counter);
+
+  const dispatch = useDispatch();
 
   const translation = translations.get(language) // отримуємо об'єкт з перекладом
   const { counText, stepText, incrementText, decrementText } = translation;
@@ -58,7 +62,7 @@ const Counter = (props) => {
 
   return (
     <div className={className}>
-      <select value={language} onChange={({ target: { value } }) => setLang(value)}>
+      <select value={language} onChange={({ target: { value } }) => dispatch(setLang(value))}>
         <option value={EN_US}>English</option>
         <option value={UA_UA}>Ukrainian</option>
         <option value={DE_DE}>Deutch</option>
@@ -70,53 +74,14 @@ const Counter = (props) => {
         <input
           type='number'
           value={step}
-          onChange={({ target: { value } }) => setStep(value)} />
+          onChange={({ target: { value } }) => dispatch(setStep(value))} />
       </label>
-      <button onClick={() => increment()}>{incrementText}</button>
-      <button onClick={() => decrement()}>{decrementText}</button>
+      <button onClick={() => dispatch(increment())}>{incrementText}</button>
+      <button onClick={() => dispatch(decrement())}>{decrementText}</button>
     </div>
   );
 }
 
-// function mapStateToProps(state) {
-//   return state;
-// }
 
-function mapStateToProps(state) {
-  console.log(state);
-  // return state.counter;
-  //{ count: state.counter.count,
-  // step: state.counter.step}
-  return {
-    counter: state.counter,
-    language: state.lang,
-    theme: state.theme
-  }
-}
+export default Counter;
 
-// Об'єктний варіант
-const mapDispatchToProps = {
-  increment,
-  decrement,
-  setStep,
-  setLang
-}
-
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);;
-
-
-/*
-замість такого запису:
-
-onChange={({ target: { value } }) => dispatch(setStep(value))}
-
-можна так: 
-
-onChange={(event) => {
-  const value = event.target.value;
-  dispatch(setStep(value))};
-}
-
-*/
