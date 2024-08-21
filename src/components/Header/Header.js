@@ -20,7 +20,7 @@ const Header = (props) => {
 
     return (
         <header className={className}>
-            <h1>My counter</h1>
+            <h1>My Site</h1>
             <nav>
                 <ul className={styles.navList}>
                     <li className={styles.navListItem}>Link1</li>
