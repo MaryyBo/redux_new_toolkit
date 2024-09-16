@@ -4,13 +4,12 @@ import * as API from 'api';
 const SLICE_NAME = 'users';
 
 const getUsers = createAsyncThunk(`${SLICE_NAME}/getUsers`, () => {
-    return API.getUsers
+    return API.getUsers();
 })
 
 //users/getUsers/fullfiled
 //users/getUsers/pending
 //users/getUsers/rejected
-
 
 
 const initialState = {
@@ -27,18 +26,14 @@ const userSlice = createSlice({
     //         //запит на сервер...але не може буди асинхронщини.
     //     }
     // },
-    extraReducers: {
-        [getUsers.pending]: (state, action) => {
-            state.isLoading = true;
-        },
-        [getUsers.fulfilled]: (state, action) => {
-            state.users = action.payload;
+    extraReducers: (builder) => {
+        builder.addCase(getUsers.pending, (state, action) => {
+            state.isLoading = true
+        });
+        builder.addCase(getUsers.fulfilled, (state, action) => {
             state.isLoading = false;
-        },
-        [getUsers.rejected]: (state, action) => {
-            state.error = action.payload;
-            state.isLoading = false;
-        }
+            state.users = action.payload
+        })
     }
 })
 // export createAsyncThunk result
