@@ -4,23 +4,23 @@ import { getUsers } from 'store/slices/usersSlice';
 
 
 const UserList = () => {
-    const { users, isLoading, error } = useSelector(state => state.users);
-    const dispatch = useDispatch();
+  const { users, isLoading, error } = useSelector(state => state.users);
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getUsers('Hello from UserList'));
-    }, []);
+  useEffect(() => {
+    dispatch(getUsers('Hello from UserList')); // users/getUsers/pending
+  }, []);
 
-    return (
-        <section>
-            {isLoading && <div>Loading...</div>}
-            {error && <div>Error</div>}
-            {users.length > 0 &&
-                users.map((currentUserObj) => (
-                    <article>{JSON.stringify(currentUserObj)}</article>
-                ))}
-        </section>
-    );
+  return (
+    <section>
+      {isLoading && <div>Loading...</div>}
+      {error && <div>Error</div>}
+      {users.length > 0 &&
+        users.map((currentUserObj) => (
+          <article>{JSON.stringify(currentUserObj)}</article>
+        ))}
+    </section>
+  );
 };
 
 export default UserList;
